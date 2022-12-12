@@ -1,7 +1,8 @@
 ﻿@model IPagedList<SewingCompany.DbModels.Customer>
-@using X.PagedList.Mvc.Core;
-@using X.PagedList;
+@using X.PagedList
+@using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewData["Title"] = "Customers";
@@ -10,14 +11,14 @@
 <h1>Customers</h1>
 
 <p>
-    <a class="create-button" asp-action="Create">Create New</a>
+    <a class="classic-button" asp-action="Create">Create New</a>
 </p>
 <!--Форма для поиска-->
 @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "search-textbox" })
-        <input class="search-button" type="submit" value="Search" />
+        <input class="classic-button" type="submit" value="Search" />
     </p>
 }
 <!--Номер страницы-->

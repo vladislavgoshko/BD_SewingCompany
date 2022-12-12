@@ -21,7 +21,7 @@ tr:nth-child(even) {
     background: rgb(240,255,228);
 }
 
-.change-button {
+.change-button { /*Кнопки для работы с записями*/
     color: black;
     font-weight: 600;
     padding: 4px 7px 4px 7px;
@@ -29,7 +29,7 @@ tr:nth-child(even) {
     transition: all 0.2s;
 }
 
-.edit-button {
+.edit-button { /*Кнопка редактирования*/
     background: rgba(84, 185, 211, 0.5);
     border-radius: 7px 0px 0px 7px;
     transition: all 0.2s;
@@ -41,7 +41,7 @@ tr:nth-child(even) {
         transition: all 0.2s;
     }
 
-.details-button {
+.details-button { /*Кнопка вывода полной информации*/
     background: rgba(150, 207, 185, 0.5);
     transition: all 0.2s;
 }
@@ -52,7 +52,7 @@ tr:nth-child(even) {
         transition: all 0.2s;
     }
 
-.delete-button {
+.delete-button { /*Кнопка удаления записи*/
     background: rgba(214, 132, 110, 0.5);
     border-radius: 0px 7px 7px 0px;
     transition: all 0.2s;
@@ -64,33 +64,22 @@ tr:nth-child(even) {
         transition: all 0.2s;
     }
 
-.create-button {
+.classic-button { /*Голубая стандартная кнопка*/
     color: black;
     font-weight: 600;
     padding: 4px 7px 4px 7px;
     text-decoration: none;
-    background: rgba(84, 185, 211, .5);
+    background: rgba(150, 207, 185, 0.5);
     border-radius: 7px;
+    border: 0px;
+    margin: 5px;
     transition: all 0.2s;
 }
 
-    .create-button:hover {
-        background: rgba(84, 185, 211, 1);
+    .classic-button:hover {
+        background: rgba(150, 207, 185, 1);
         color: black;
         transition: all 0.3s;
-    }
-
-.search-button {
-    background: rgba(84, 185, 211, 0.5);
-    font-weight: 600;
-    padding: 4px 7px 4px 7px;
-    border-radius: 7px;
-    border: 0;
-    transition: all 0.2s;
-}
-    .search-button:hover {
-        background: rgba(84, 185, 211, 1);
-        transition: all 0.2s;
     }
 
 .search-textbox {
@@ -99,7 +88,7 @@ tr:nth-child(even) {
     color: black;
 }
 
-.page-item.active .page-link {
+.page-item.active .page-link { /*Страничная навигация*/
     background: rgba(84, 185, 211, 0.5);
     color: black;
     border-color: rgba(84, 185, 211, 0.5);
@@ -110,3 +99,16 @@ tr:nth-child(even) {
         color: black;
         transition: all 0.2s;
     }
+
+.red-button {
+    background: background: rgba(214, 132, 110, 0.5);
+    border-radius: 7px;
+    border: 0px;
+    font-weight: 600;
+    padding: 4px 7px 4px 7px;
+}
+
+.center-button {
+    text-align: center;
+    padding: 10px;
+}

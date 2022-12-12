@@ -8,13 +8,14 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
+using System.Web.WebPages;
 
 namespace SewingCompany.Controllers
 {
     public class CustomersController : Controller
     {
         private readonly SewingCompanyContext _context;
-
+        
         public CustomersController(SewingCompanyContext context)
         {
             _context = context;
@@ -23,8 +24,8 @@ namespace SewingCompany.Controllers
         // GET: Customers
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            
             ViewBag.CurrentSort = sortOrder;
-
             ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
             ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
 
@@ -72,14 +73,17 @@ namespace SewingCompany.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
+            var customers = _context.Customers.Include(x => x.Orders).Where(m => m.Id == id);
+            
+            if (customers == null)
             {
                 return NotFound();
             }
-
-            return View(customer);
+            (from ord in _context.Orders
+             join c in customers
+             on ord.CustomerId equals c.Id
+             select ord).Include(x => x.Product).Load();
+            return View(customers.FirstOrDefault());
         }
 
         // GET: Customers/Create
