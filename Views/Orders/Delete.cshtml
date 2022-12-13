@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Delete";
 }
-
-<a class="classic-button" asp-action="Index">&lt; Back to List</a>
+<div class="center-button">
+    <a class="classic-button" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+</div>
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -65,5 +66,6 @@
     <form asp-action="Delete" class="center-button">
         <input type="hidden" asp-for="Id" />
         <input class="delete-button red-button btn btn-danger" type="submit" value="Delete" />
+
     </form>
 </div>

@@ -4,30 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace SewingCompany.Controllers
 {
-    public class CustomersController : Controller
+    public class ProductsController : Controller
     {
         private readonly SewingCompanyContext _context;
-        
-        public CustomersController(SewingCompanyContext context)
+
+        public ProductsController(SewingCompanyContext context)
         {
             _context = context;
         }
 
-        // GET: Customers
+        // GET: Products
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
             ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
-
+            ViewBag.AmountSortParm = sortOrder == "amount_desc" ? "amount_asc" : "amount_desc";
+            ViewBag.PriceSortParm = sortOrder == "price_asc" ? "price_desc" : "price_asc";
             if (searchString != null)
             {
                 page = 1;
@@ -36,101 +36,111 @@ namespace SewingCompany.Controllers
             {
                 searchString = currentFilter;
             }
-
             ViewBag.CurrentFilter = searchString;
-            var customers = from c in _context.Customers
-                            select c;
+            var products = from x in _context.Products
+                         select x;
+            products = products.Include(x => x.MaterialLists);
             if (!string.IsNullOrEmpty(searchString))
             {
-                customers = customers.Where(c => c.Name.Contains(searchString));
+                products = products.Where(x => x.Name.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "id_desc":
-                    customers = customers.OrderByDescending(c => c.Id);
+                    products = products.OrderByDescending(x => x.Id);
                     break;
                 case "name_asc":
-                    customers = customers.OrderBy(c =>  c.Name);
+                    products = products.OrderBy(x => x.Name);
                     break;
                 case "name_desc":
-                    customers = customers.OrderByDescending(c => c.Name);
+                    products = products.OrderByDescending(x => x.Name);
+                    break;
+                case "amount_asc":
+                    products = products.OrderBy(x => x.MaterialLists.Count);
+                    break;
+                case "amount_desc":
+                    products = products.OrderByDescending(x => x.MaterialLists.Count);
+                    break;
+                case "price_asc":
+                    products = products.OrderBy(x => x.Price);
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(x => x.Price);
                     break;
                 default:
-                    customers = customers.OrderBy(c => c.Id);
+                    products = products.OrderBy(x => x.Id);
                     break;
             }
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
-            return View(customers.ToPagedList(pageNumber, pageSize));
+            return View(await products.ToPagedListAsync(pageNumber, pageSize));
         }
 
-        // GET: Customers/Details/5
+        // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var customers = _context.Customers.Include(x => x.Orders).Where(m => m.Id == id);
-            
-            if (customers == null)
+            var product = await _context.Products
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (product == null)
             {
                 return NotFound();
             }
-            (from ord in _context.Orders
-             join c in customers
-             on ord.CustomerId equals c.Id
-             select ord).Include(x => x.Product).Load();
-            return View(customers.FirstOrDefault());
+
+            return View(product);
         }
 
-        // GET: Customers/Create
+        // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(product);
         }
 
-        // GET: Customers/Edit/5
+        // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(customer);
+            return View(product);
         }
 
-        // POST: Customers/Edit/5
+        // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price")] Product product)
         {
-            if (id != customer.Id)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -139,12 +149,12 @@ namespace SewingCompany.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.Id))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -155,49 +165,49 @@ namespace SewingCompany.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View(product);
         }
 
-        // GET: Customers/Delete/5
+        // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Customers == null)
+            if (id == null || _context.Products == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customers
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return View(product);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Customers == null)
+            if (_context.Products == null)
             {
-                return Problem("Entity set 'SewingCompanyContext.Customers'  is null.");
+                return Problem("Entity set 'SewingCompanyContext.Products'  is null.");
             }
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer != null)
+            var product = await _context.Products.FindAsync(id);
+            if (product != null)
             {
-                _context.Customers.Remove(customer);
+                _context.Products.Remove(product);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CustomerExists(int id)
+        private bool ProductExists(int id)
         {
-          return _context.Customers.Any(e => e.Id == id);
+          return _context.Products.Any(e => e.Id == id);
         }
     }
 }

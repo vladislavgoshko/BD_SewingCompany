@@ -1,0 +1,83 @@
+﻿@model IPagedList<SewingCompany.DbModels.Worker>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewData["Title"] = "Workers";
+}
+
+<h1>Workers</h1>
+<p>
+    <a class="classic-button" asp-action="Create">Create New</a>
+</p>
+<!--Форма для поиска-->
+@using (Html.BeginForm("Index", "Workers", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "search-textbox" })
+        <input class="classic-button" type="submit" value="Search" />
+    </p>
+}
+<!--Номер страницы-->
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<!--Список страниц-->
+<div class="pull-right">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    Display = PagedListDisplayMode.IfNeeded
+    })
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.IdSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Section", "Index", new { sortOrder = ViewBag.SectionSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Section)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+                <td>
+                    <a class="change-button edit-button" asp-action="Edit" asp-route-id="@item.Id">Edit</a><a class="change-button details-button" asp-action="Details" asp-route-id="@item.Id">Details</a><a class="change-button delete-button" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+<div class="pull-right">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    Display = PagedListDisplayMode.IfNeeded
+    })
+</div>
