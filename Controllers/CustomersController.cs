@@ -26,8 +26,8 @@ namespace SewingCompany.Controllers
         {
             
             ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
             ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
+            ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
 
             if (searchString != null)
             {
@@ -43,7 +43,7 @@ namespace SewingCompany.Controllers
                             select c;
             if (!string.IsNullOrEmpty(searchString))
             {
-                customers = customers.Where(c => c.Name.Contains(searchString) && c.Name.Contains(""));
+                customers = customers.Where(c => c.Name.Contains(searchString));
             }
             switch (sortOrder)
             {

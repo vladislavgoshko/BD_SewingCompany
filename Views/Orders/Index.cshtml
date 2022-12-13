@@ -1,20 +1,20 @@
-﻿@model IPagedList<SewingCompany.DbModels.Customer>
+﻿@model IPagedList<SewingCompany.DbModels.Order>
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewData["Title"] = "Customers";
+    ViewData["Title"] = "Orders";
 }
 
-<h1>Customers</h1>
+<h1>Orders</h1>
 
 <p>
     <a class="classic-button" asp-action="Create">Create New</a>
 </p>
 <!--Форма для поиска-->
-@using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+@using (Html.BeginForm("Index", "Orders", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "search-textbox" })
@@ -26,11 +26,11 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 <!--Список страниц-->
 <div class="pull-right">
     @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
-        {
-            LiElementClasses = new string[] { "page-item" },
-            PageClasses = new string[] { "page-link" },
-            Display = PagedListDisplayMode.IfNeeded
-        })
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    Display = PagedListDisplayMode.IfNeeded
+    })
 </div>
 <table class="table">
     <thead>
@@ -39,7 +39,16 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                 @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.IdSortParm, currentFilter=ViewBag.CurrentFilter })
             </th>
             <th>
-                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Customer", "Index", new { sortOrder = ViewBag.CustomerSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Product", "Index", new { sortOrder = ViewBag.ProductSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Amount", "Index", new { sortOrder = ViewBag.AmountSortParm, currentFilter=ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Order date", "Index", new { sortOrder = ViewBag.OrderDateSortParm, currentFilter=ViewBag.CurrentFilter })
             </th>
             <th></th>
         </tr>
@@ -52,10 +61,20 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Customer.Name)
                 </td>
                 <td>
-                    <a class="change-button edit-button"  asp-action="Edit" asp-route-id="@item.Id">Edit</a><a class="change-button details-button" asp-action="Details" asp-route-id="@item.Id">Details</a><a class="change-button delete-button" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+
+                <td>
+                    <a class="change-button edit-button" asp-action="Edit" asp-route-id="@item.Id">Edit</a><a class="change-button details-button" asp-action="Details" asp-route-id="@item.Id">Details</a><a class="change-button delete-button" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

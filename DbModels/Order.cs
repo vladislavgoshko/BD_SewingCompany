@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SewingCompany.DbModels
 {
@@ -9,9 +10,13 @@ namespace SewingCompany.DbModels
         public int? CustomerId { get; set; }
         public int? ProductId { get; set; }
         public int? Amount { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? OrderDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ExecutionStartDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ImplementationDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DeliveryOrderDate { get; set; }
         public int? WorkerId { get; set; }
 

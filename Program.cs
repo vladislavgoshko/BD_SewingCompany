@@ -51,7 +51,7 @@ namespace SewingCompany
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Customers}/{action=Index}/{id?}");
+                pattern: "{controller=Orders}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();

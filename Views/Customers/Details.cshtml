@@ -33,7 +33,7 @@
                 {
                         string orderString = $"Product name: {order.Product.Name}, Amount: {order.Amount}, Price: {Math.Round(Convert.ToDecimal(order.Product.Price * order.Amount), 2)}$";
                         @Html.DisplayFor(modelItem => orderString)
-                        <a class="change-button edit-button" asp-action="Edit" asp-route-id="@order.Id">Edit</a><a class="change-button details-button" asp-action="Details" asp-route-id="@order.Id">Details</a><a class="change-button delete-button" asp-action="Delete" asp-route-id="@order.Id">Delete</a>
+                        <a class="change-button edit-button" asp-controller="Orders" asp-action="Edit" asp-route-id="@order.Id">Edit</a><a class="change-button details-button" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">Details</a><a class="change-button delete-button" asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id">Delete</a>
                         <br/>
                         <br/>
                     }
@@ -43,5 +43,5 @@
     </dl>
 </div>
 <div class="center-button">
-    <a class="classic-button" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+    <a class="classic-button"  asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
 </div>
