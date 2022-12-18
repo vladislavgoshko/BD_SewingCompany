@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
@@ -16,7 +10,7 @@ namespace SewingCompany.Controllers
     public class CustomersController : Controller
     {
         private readonly SewingCompanyContext _context;
-        
+
         public CustomersController(SewingCompanyContext context)
         {
             _context = context;
@@ -25,7 +19,7 @@ namespace SewingCompany.Controllers
         // GET: Customers
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
             ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
@@ -52,7 +46,7 @@ namespace SewingCompany.Controllers
                     customers = customers.OrderByDescending(c => c.Id);
                     break;
                 case "name_asc":
-                    customers = customers.OrderBy(c =>  c.Name);
+                    customers = customers.OrderBy(c => c.Name);
                     break;
                 case "name_desc":
                     customers = customers.OrderByDescending(c => c.Name);
@@ -77,7 +71,7 @@ namespace SewingCompany.Controllers
             var customers = _context.Customers
                 .Include(x => x.Orders)
                 .Where(m => m.Id == id);
-            
+
             if (customers == null)
             {
                 return NotFound();
@@ -194,14 +188,14 @@ namespace SewingCompany.Controllers
             {
                 _context.Customers.Remove(customer);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CustomerExists(int id)
         {
-          return _context.Customers.Any(e => e.Id == id);
+            return _context.Customers.Any(e => e.Id == id);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
@@ -31,14 +30,14 @@ namespace SewingCompany.Controllers
             ViewBag.OrderDateSortParm = sortOrder == "orderdate_name_asc" ? "orderdate_name_desc" : "orderdate_name_asc";
 
             ViewBag.Profit = Math.Round((from ord in _context.Orders
-                             join p in _context.Products
-                             on ord.ProductId equals p.Id
-                             where ord.OrderDate.Value.Year == 2022
-                             select new
-                             {
-                                 Amount = ord.Amount,
-                                 Price = p.Price
-                             }).Select(x =>  x.Price * x.Amount).Sum(x => x.Value), 2);
+                                         join p in _context.Products
+                                         on ord.ProductId equals p.Id
+                                         where ord.OrderDate.Value.Year == 2022
+                                         select new
+                                         {
+                                             Amount = ord.Amount,
+                                             Price = p.Price
+                                         }).Select(x => x.Price * x.Amount).Sum(x => x.Value), 2);
 
             ViewBag.Expense = Math.Round(Convert.ToDecimal(_context.Providers.Sum(x => x.Price)), 2);
 
@@ -55,7 +54,7 @@ namespace SewingCompany.Controllers
 
             var orders = from ord in _context.Orders
                          select ord;
-            
+
             //(from p in _context.Products
             // join ord in orders
             // on p.Id equals ord.ProductId
@@ -246,14 +245,14 @@ namespace SewingCompany.Controllers
             {
                 _context.Orders.Remove(order);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool OrderExists(int id)
         {
-          return _context.Orders.Any(e => e.Id == id);
+            return _context.Orders.Any(e => e.Id == id);
         }
     }
 }

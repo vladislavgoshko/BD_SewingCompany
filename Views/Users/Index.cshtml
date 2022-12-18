@@ -1,16 +1,39 @@
-﻿@model IEnumerable<SewingCompany.ViewModels.User.UserViewModel>
+﻿@model IPagedList<SewingCompany.ViewModels.User.UserViewModel>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
 @{
-    ViewBag.Title = "Список пользователей";
+    ViewBag.Title = "List of users";
 }
 
-<h2>Пользователи</h2>
-<a class="btn btn-primary" asp-action="Create" asp-controller="Users">Добавить</a>
-
+<h2>Users</h2>
+<p>
+    <a class="classic-button" asp-action="Create">Create New</a>
+</p>
+<!--Номер страницы-->
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<!--Список страниц-->
+<div class="pull-right">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    Display = PagedListDisplayMode.IfNeeded
+    })
+</div>
 <table class="table">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.UserName)</th>
-        <th>@Html.DisplayNameFor(model => model.Email)</th>
-        <th>@Html.DisplayNameFor(model => model.RoleName)</th>
+        <th>
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+            
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter=ViewBag.CurrentFilter })
+
+        </th>
+        <th>
+            @Html.ActionLink("Role", "Index", new { sortOrder = ViewBag.RoleSortParm, currentFilter=ViewBag.CurrentFilter })
+        </th>
     </tr>
     @foreach (var user in Model)
     {
@@ -20,10 +43,20 @@
             <td>@Html.DisplayFor(modelItem => user.RoleName)</td>
             <td>
                 <form asp-action="Delete" asp-route-id="@user.Id" method="post">
-                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
-                    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                    <a class="change-button edit-button" asp-action="Edit" asp-route-id="@user.Id">Edit</a><button type="submit" class="change-button delete-button user-delete-btn">Delete</button>
                 </form>
             </td>
         </tr>
     }
 </table>
+<!--Номер страницы-->
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<!--Список страниц-->
+<div class="pull-right">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    Display = PagedListDisplayMode.IfNeeded
+    })
+</div>

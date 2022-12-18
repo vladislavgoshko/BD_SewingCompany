@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SewingCompany.DbModels
 {
@@ -23,12 +20,6 @@ namespace SewingCompany.DbModels
         [RegularExpression(@"[А-Яа-яA-Za-z0-9-\s]+", ErrorMessage = "Not a type")]
         [Required(ErrorMessage = "Required")]
         public string? Type { get; set; }
-
-        [Range(0, double.MaxValue, ErrorMessage = "> 0")]
-        [DisplayFormat(DataFormatString = "{0:0.00}")]
-        [Required(ErrorMessage = "Required")]
-        [DisplayName("Quantity in stock")]
-        public double? QuantityInStock { get; set; }
 
         [Required(ErrorMessage = "Required")]
         public int? ProviderId { get; set; }

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace SewingCompany
+﻿namespace SewingCompany
 {
 
     public static class InitializeDbExtension

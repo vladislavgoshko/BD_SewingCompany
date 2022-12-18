@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
-using X.PagedList;
-using SewingCompany.ViewModels;
 using SewingCompany.ViewModels.Worker;
-using System.Security.Cryptography.Xml;
+using X.PagedList;
 
 namespace SewingCompany.Controllers
 {

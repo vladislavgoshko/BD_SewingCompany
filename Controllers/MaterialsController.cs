@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
-using X.PagedList;
 using SewingCompany.ViewModels.Material;
-using static NuGet.Packaging.PackagingConstants;
+using X.PagedList;
 
 namespace SewingCompany.Controllers
 {
@@ -48,8 +43,8 @@ namespace SewingCompany.Controllers
             var materials = from x in _context.Materials
                             select x;
             materials = materials.Include(x => x.Provider);
-            
-            
+
+
             if (!string.IsNullOrEmpty(viewModel.searchString))
             {
                 materials = materials.Where(x => x.Name.Contains(viewModel.searchString));

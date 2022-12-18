@@ -100,7 +100,7 @@ Page @(Model.Materials.PageCount < Model.Materials.PageNumber ? 0 : Model.Materi
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QuantityInStock)
+                    @Html.DisplayFor(modelItem => item.Provider.MaterialAmount)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Provider.Name)

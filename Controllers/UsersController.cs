@@ -1,13 +1,9 @@
-﻿using SewingCompany.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using SewingCompany.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SewingCompany.ViewModels.User;
+using X.PagedList;
 
 namespace SewingCompany.Controllers
 {
@@ -24,9 +20,37 @@ namespace SewingCompany.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = sortOrder == "name_desc" ? "name_asc" : "name_desc";
+            ViewBag.EmailSortParm = sortOrder == "email_desc" ? "email_asc" : "email_desc";
+            ViewBag.RoleSortParm = sortOrder == "role_desc" ? "role_asc" : "role_desc";
+
             var users = _userManager.Users.OrderBy(user => user.Id);
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    users = users.OrderByDescending(us => us.UserName);
+                    break;
+                case "email_asc":
+                    users = users.OrderBy(us => us.UserName);
+                    break;
+                case "email_desc":
+                    users = users.OrderByDescending(us => us.Email);
+                    break;
+                case "role_asc":
+                    users = users.OrderBy(us => us.Email);
+                    break;
+                case "role_desc":
+                    users = users.OrderByDescending(us => us.Email);
+                    break;
+                default:
+                    users = users.OrderBy(us => us.UserName);
+                    break;
+            }
+
 
             List<UserViewModel> userViewModel = new List<UserViewModel>();
 
@@ -51,7 +75,10 @@ namespace SewingCompany.Controllers
 
             }
 
-            return View(userViewModel);
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+
+            return View(userViewModel.ToPagedList(pageNumber, pageSize));
         }
 
         public IActionResult Create()

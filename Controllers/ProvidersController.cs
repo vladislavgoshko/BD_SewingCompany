@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
@@ -39,7 +34,7 @@ namespace SewingCompany.Controllers
             }
             ViewBag.CurrentFilter = searchString;
             var providers = from x in _context.Providers
-                           select x;
+                            select x;
             if (!string.IsNullOrEmpty(searchString))
             {
                 providers = providers.Where(x => x.Name.Contains(searchString));
@@ -207,14 +202,14 @@ namespace SewingCompany.Controllers
             {
                 _context.Providers.Remove(provider);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProviderExists(int id)
         {
-          return _context.Providers.Any(e => e.Id == id);
+            return _context.Providers.Any(e => e.Id == id);
         }
     }
 }

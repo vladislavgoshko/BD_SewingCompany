@@ -50,7 +50,7 @@ namespace SewingCompany
             app.UseAuthentication();
             app.UseAuthorization();
 
-            
+
 
             app.UseInitializer();
             //app.UseInitializer(new SewingCompanyContext());

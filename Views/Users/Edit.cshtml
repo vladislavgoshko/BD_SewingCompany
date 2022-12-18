@@ -1,19 +1,21 @@
 ﻿@model SewingCompany.ViewModels.User.EditUserViewModel
 @{
-    ViewBag.Title = "Редактирование пользователя";
+    ViewBag.Title = "Edit user";
 }
-
-<h2>Редактировать</h2>
+<div>
+    <a class="classic-button" asp-action="Index">&lt; Back to List</a>
+</div>
+<h2>Edit</h2>
 
 <form asp-action="Edit" asp-controller="Users">
-    <h4>Пользователь</h4>
+    <h4>User</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <input type="hidden" asp-for="Id" />
     </div>
     <div class="form-group">
-        <label asp-for="UserName" class="control-label  col-md-2">Имя пользователя</label>
+        <label asp-for="UserName" class="control-label  col-md-2">Name</label>
         <input type="text" asp-for="UserName" class="form-control" />
     </div>
     <div class="form-group">
@@ -27,12 +29,9 @@
         <span asp-validation-for="UserRole" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-warning" />
+        <center><input type="submit" value="Save" class="btn classic-button" /></center>
     </div>
 </form>
-<div>
-    <a asp-action="Index" class="btn btn-sm btn-primary">Вернуться</a>
-</div>
 
 @section Scripts {
     @{

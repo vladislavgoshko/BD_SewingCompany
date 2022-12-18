@@ -1,8 +1,4 @@
-﻿using SewingCompany.DbModels;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using X.PagedList;
+﻿using X.PagedList;
 
 namespace SewingCompany.ViewModels.Material
 {

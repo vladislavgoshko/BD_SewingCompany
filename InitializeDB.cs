@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using SewingCompany.DbModels;
-using System.Net.Http.Headers;
+﻿using SewingCompany.DbModels;
 
 namespace SewingCompany
 {
@@ -30,8 +28,9 @@ namespace SewingCompany
             for (int i = 0; i < 100; ++i)
             {
                 string type = "";
-                for (int j = 0; j < random.Next(10, 15); ++j) {
-                    type+=chars[random.Next(0, chars.Length-1)];
+                for (int j = 0; j < random.Next(10, 15); ++j)
+                {
+                    type += chars[random.Next(0, chars.Length - 1)];
                 }
                 types.Add(type);
             }
@@ -67,14 +66,13 @@ namespace SewingCompany
                 });
             }
             Console.WriteLine(dbContext.SaveChanges());
-            
+
             for (int i = 0; i < N; i++)
             {
                 dbContext.Materials.Add(new Material()
                 {
                     Name = nameMaterials[random.Next(0, nameMaterials.Count - 1)],
                     Type = types[random.Next(0, types.Count - 1)],
-                    QuantityInStock = new Random().NextDouble() * 100 + 10,
                     ProviderId = new Random().Next(1, dbContext.Providers.OrderByDescending(x => x.Id).First().Id)
                 });
             }

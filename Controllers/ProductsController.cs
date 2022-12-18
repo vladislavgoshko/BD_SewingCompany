@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
@@ -38,7 +33,7 @@ namespace SewingCompany.Controllers
             }
             ViewBag.CurrentFilter = searchString;
             var products = from x in _context.Products
-                         select x;
+                           select x;
             products = products.Include(x => x.MaterialLists);
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -92,10 +87,10 @@ namespace SewingCompany.Controllers
             {
                 return NotFound();
             }
-            (from  ml in _context.MaterialLists
-                     join p in products
-                     on ml.ProductId equals p.Id
-                     select ml).Include(x => x.Material).Load();
+            (from ml in _context.MaterialLists
+             join p in products
+             on ml.ProductId equals p.Id
+             select ml).Include(x => x.Material).Load();
             return View(products.FirstOrDefault());
         }
 
@@ -208,14 +203,14 @@ namespace SewingCompany.Controllers
             {
                 _context.Products.Remove(product);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-          return _context.Products.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }

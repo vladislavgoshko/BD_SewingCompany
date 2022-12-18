@@ -1,7 +1,4 @@
-﻿using SewingCompany.DbModels;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
 
 namespace SewingCompany.ViewModels.Worker

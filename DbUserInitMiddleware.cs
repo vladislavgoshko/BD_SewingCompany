@@ -1,12 +1,4 @@
-﻿using SewingCompany.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using SewingCompany;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SewingCompany
+﻿namespace SewingCompany
 {
     public class DbUserInitMiddleware
     {
@@ -20,7 +12,7 @@ namespace SewingCompany
         {
             //if (!(context.Session.Keys.Contains("starting")))
             //{
-                DbUserInitializer.Initialize(context).Wait();
+            DbUserInitializer.Initialize(context).Wait();
             //    context.Session.SetString("starting", "Yes");
             //}
 
