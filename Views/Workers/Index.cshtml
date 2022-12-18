@@ -1,4 +1,4 @@
-﻿@model IPagedList<SewingCompany.DbModels.Worker>
+﻿@model SewingCompany.ViewModels.Worker.IndexWorkerViewModel
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
@@ -15,46 +15,87 @@
 <!--Форма для поиска-->
 @using (Html.BeginForm("Index", "Workers", FormMethod.Get))
 {
-    <p>
-        
+    <p>Select section: 
+        @Html.DropDownListFor(model => model.SelectedSection, Model.sections as SelectList) 
+        @Html.CheckBoxFor(model => model.isSection)
+    </p>
+    <p>Not at time: 
+        @Html.CheckBoxFor(model => model.isNotAtTime)
     </p>
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "search-textbox" })
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new 
+        { @class = "search-textbox" })
         <input class="classic-button" type="submit" value="Search" />
     </p>
 }
 
 <!--Номер страницы-->
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Page @(Model.Workers.PageCount < Model.Workers.PageNumber ? 0 : Model.Workers.PageNumber) of @Model.Workers.PageCount
 <!--Список страниц-->
 <div class="pull-right">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
-    {
-    LiElementClasses = new string[] { "page-item" },
-    PageClasses = new string[] { "page-link" },
-    Display = PagedListDisplayMode.IfNeeded
-    })
+    @Html.PagedListPager((IPagedList)Model.Workers, 
+    page => Url.Action("Index", new { 
+        page = page, 
+        sortOrder = ViewBag.CurrentSort, 
+        currentFilter = ViewBag.CurrentFilter, 
+        isNotAtTime = Model.isNotAtTime, 
+        isSection = Model.isSection 
+    }), 
+        new PagedListRenderOptions
+        {
+        LiElementClasses = new string[] { "page-item" },
+        PageClasses = new string[] { "page-link" },
+        Display = PagedListDisplayMode.IfNeeded
+        })
 </div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.IdSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Id", "Index", new 
+                { 
+                    sortOrder = ViewBag.IdSortParm, 
+                    currentFilter=ViewBag.CurrentFilter,
+                    isNotAtTime = Model.isNotAtTime,
+                    isSection = Model.isSection,
+                    SelectedSection = Model.SelectedSection
+                })
             </th>
             <th>
-                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Name", "Index", new
+                {
+                sortOrder = ViewBag.NameSortParm,
+                    currentFilter=ViewBag.CurrentFilter,
+                    isNotAtTime = Model.isNotAtTime,
+                isSection = Model.isSection,
+                SelectedSection = Model.SelectedSection
+                })
             </th>
             <th>
-                @Html.ActionLink("Section", "Index", new { sortOrder = ViewBag.SectionSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Section", "Index", new
+                {
+                sortOrder = ViewBag.SectionSortParm,
+                    currentFilter=ViewBag.CurrentFilter,
+                    isNotAtTime = Model.isNotAtTime,
+                    isSection = Model.isSection,
+                    SelectedSection = Model.SelectedSection
+                })
             </th>
             <th>
-                @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Position", "Index", new
+                {
+                sortOrder = ViewBag.PositionSortParm,
+                    currentFilter=ViewBag.CurrentFilter,
+                    isNotAtTime = Model.isNotAtTime,
+                    isSection = Model.isSection,
+                    SelectedSection = Model.SelectedSection
+                })
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Workers) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -76,10 +117,18 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     </tbody>
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Page @(Model.Workers.PageCount < Model.Workers.PageNumber ? 0 : Model.Workers.PageNumber) of @Model.Workers.PageCount
 
 <div class="pull-right">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    @Html.PagedListPager((IPagedList)Model.Workers,
+    page => Url.Action("Index", new {
+    page = page,
+    sortOrder = ViewBag.CurrentSort,
+    currentFilter = ViewBag.CurrentFilter,
+    isNotAtTime = Model.isNotAtTime,
+    isSection = Model.isSection
+    }),
+    new PagedListRenderOptions
     {
     LiElementClasses = new string[] { "page-item" },
     PageClasses = new string[] { "page-link" },

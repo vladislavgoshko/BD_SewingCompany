@@ -30,6 +30,18 @@ namespace SewingCompany.Controllers
             ViewBag.AmountSortParm = sortOrder == "amount_name_asc" ? "amount_name_desc" : "amount_name_asc";
             ViewBag.OrderDateSortParm = sortOrder == "orderdate_name_asc" ? "orderdate_name_desc" : "orderdate_name_asc";
 
+            ViewBag.Profit = Math.Round((from ord in _context.Orders
+                             join p in _context.Products
+                             on ord.ProductId equals p.Id
+                             where ord.OrderDate.Value.Year == 2022
+                             select new
+                             {
+                                 Amount = ord.Amount,
+                                 Price = p.Price
+                             }).Select(x =>  x.Price * x.Amount).Sum(x => x.Value), 2);
+
+            ViewBag.Expense = Math.Round(Convert.ToDecimal(_context.Providers.Sum(x => x.Price)), 2);
+
             if (searchString != null)
             {
                 page = 1;

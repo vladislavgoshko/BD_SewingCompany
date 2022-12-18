@@ -1,7 +1,8 @@
-﻿@model IPagedList<SewingCompany.DbModels.Material>
+﻿@model SewingCompany.ViewModels.Material.IndexMaterialViewModel
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewData["Title"] = "Materials";
@@ -15,16 +16,25 @@
 <!--Форма для поиска-->
 @using (Html.BeginForm("Index", "Materials", FormMethod.Get))
 {
+    <p>Is ends: 
+        @Html.CheckBoxFor(model => model.isEnds)
+    </p>
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "search-textbox" })
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new 
+        { @class = "search-textbox" })
         <input class="classic-button" type="submit" value="Search" />
     </p>
 }
 <!--Номер страницы-->
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Page @(Model.Materials.PageCount < Model.Materials.PageNumber ? 0 : Model.Materials.PageNumber) of @Model.Materials.PageCount
 <!--Список страниц-->
 <div class="pull-right">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    @Html.PagedListPager((IPagedList)Model.Materials, page => Url.Action("Index", new 
+    { 
+        page = page, sortOrder = ViewBag.CurrentSort,
+        currentFilter = ViewBag.CurrentFilter,
+        isEnds = Model.isEnds
+    }), new PagedListRenderOptions
     {
     LiElementClasses = new string[] { "page-item" },
     PageClasses = new string[] { "page-link" },
@@ -35,25 +45,49 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     <thead>
         <tr>
             <th>
-                @Html.ActionLink("Id", "Index", new { sortOrder = ViewBag.IdSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Id", "Index", new { 
+                    sortOrder = ViewBag.IdSortParm,
+                    currentFilter=ViewBag.CurrentFilter,
+                    isEnds = Model.isEnds
+                })
             </th>
             <th>
-                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Name", "Index", new 
+                { 
+                    sortOrder = ViewBag.NameSortParm,
+                    currentFilter=ViewBag.CurrentFilter ,
+                    isEnds = Model.isEnds
+                })
             </th>
             <th>
-                @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Type", "Index", new 
+                { 
+                    sortOrder = ViewBag.TypeSortParm, 
+                    currentFilter=ViewBag.CurrentFilter ,
+                    isEnds = Model.isEnds
+                })
             </th>
             <th>
-                @Html.ActionLink("Amount", "Index", new { sortOrder = ViewBag.AmountSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Amount", "Index", new 
+                { 
+                    sortOrder = ViewBag.AmountSortParm,
+                    currentFilter=ViewBag.CurrentFilter ,
+                    isEnds = Model.isEnds
+                })
             </th>
             <th>
-                @Html.ActionLink("Provider", "Index", new { sortOrder = ViewBag.ProviderSortParm, currentFilter=ViewBag.CurrentFilter })
+                @Html.ActionLink("Provider", "Index", new 
+                { 
+                    sortOrder = ViewBag.ProviderSortParm, 
+                    currentFilter=ViewBag.CurrentFilter,
+                isEnds = Model.isEnds
+                })
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Materials)
         {
             <tr>
                 <td>
@@ -79,10 +113,16 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     </tbody>
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+Page @(Model.Materials.PageCount < Model.Materials.PageNumber ? 0 : Model.Materials.PageNumber) of @Model.Materials.PageCount
 
 <div class="pull-right">
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), new PagedListRenderOptions
+    @Html.PagedListPager((IPagedList)Model.Materials, page => Url.Action("Index", new 
+    { 
+        page = page, 
+        sortOrder = ViewBag.CurrentSort, 
+        currentFilter = ViewBag.CurrentFilter,
+        isEnds = Model.isEnds
+    }), new PagedListRenderOptions
     {
     LiElementClasses = new string[] { "page-item" },
     PageClasses = new string[] { "page-link" },

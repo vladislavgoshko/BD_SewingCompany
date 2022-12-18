@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
+using SewingCompany.ViewModels;
+using SewingCompany.ViewModels.Worker;
+using System.Security.Cryptography.Xml;
+
 namespace SewingCompany.Controllers
 {
     [Authorize]
@@ -21,39 +25,45 @@ namespace SewingCompany.Controllers
         }
 
         // GET: Workers
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, string section, bool isSection)
+        public async Task<IActionResult> Index(IndexWorkerViewModel viewModel)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
-            ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
-            ViewBag.SectionSortParm = sortOrder == "section_desc" ? "section_asc" : "section_desc";
-            ViewBag.PositionSortParm = sortOrder == "position_asc" ? "position_desc" : "position_asc";
+            ViewBag.CurrentSort = viewModel.sortOrder;
+            ViewBag.IdSortParm = viewModel.sortOrder == "id_desc" ? "id_asc" : "id_desc";
+            ViewBag.NameSortParm = viewModel.sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewBag.SectionSortParm = viewModel.sortOrder == "section_desc" ? "section_asc" : "section_desc";
+            ViewBag.PositionSortParm = viewModel.sortOrder == "position_asc" ? "position_desc" : "position_asc";
+            //ViewBag.isNotAtTime = viewModel.isNotAtTime;
+            //ViewBag.isSection = viewModel.isSection;
 
-            ViewBag.Sections = _context.Workers.Select(a => new SelectListItem()
+            viewModel.sections = new SelectList(_context.Workers.OrderBy(x => x.Section).Select(x => x.Section).Distinct(), "Section");
+
+            if (viewModel.searchString != null)
             {
-                Value = a.Section,
-                Text = a.Section
-            });
-
-
-            if (searchString != null)
-            {
-                page = 1;
+                viewModel.page = 1;
             }
             else
             {
-                searchString = currentFilter;
+                viewModel.searchString = viewModel.currentFilter;
             }
-            ViewBag.CurrentFilter = searchString;
+
+            ViewBag.CurrentFilter = viewModel.searchString;
+
             var workers = from x in _context.Workers
-                           select x;
-            if (!string.IsNullOrEmpty(searchString))
-                workers = workers.Where(x => x.Name.Contains(searchString));
+                          select x;
+            if (!string.IsNullOrEmpty(viewModel.searchString))
+                workers = workers.Where(x => x.Name.Contains(viewModel.searchString));
 
-            if (isSection)
-                workers = workers.Where(x => x.Section == section);
+            if (viewModel.isSection)
+                workers = workers.Where(x => x.Section.Contains(viewModel.SelectedSection));
 
-            switch (sortOrder)
+            if (viewModel.isNotAtTime)
+                workers = (from w in workers
+                           join ord in _context.Orders
+                           on w.Id equals ord.WorkerId
+                           where ord.ImplementationDate > ord.DeliveryOrderDate
+                           select w).Distinct();
+
+            switch (viewModel.sortOrder)
             {
                 case "id_desc":
                     workers = workers.OrderByDescending(x => x.Id);
@@ -80,10 +90,11 @@ namespace SewingCompany.Controllers
                     workers = workers.OrderBy(x => x.Id);
                     break;
             }
-
             int pageSize = 20;
-            int pageNumber = (page ?? 1);
-            return View(await workers.ToPagedListAsync(pageNumber, pageSize));
+            int pageNumber = (viewModel.page ?? 1);
+            viewModel.Workers = workers.ToPagedList(pageNumber, pageSize);
+
+            return View(viewModel);
         }
 
         // GET: Workers/Details/5
@@ -213,14 +224,14 @@ namespace SewingCompany.Controllers
             {
                 _context.Workers.Remove(worker);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool WorkerExists(int id)
         {
-          return _context.Workers.Any(e => e.Id == id);
+            return _context.Workers.Any(e => e.Id == id);
         }
     }
 }

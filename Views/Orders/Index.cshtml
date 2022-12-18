@@ -9,7 +9,16 @@
 }
 
 <h1>Orders</h1>
-
+<p>
+    <b>
+        @($"For 2022")
+    </b>
+        </br>  
+        @($"  Profit: {ViewBag.Profit}$")
+        </br>  
+        @($"  Expense: {ViewBag.Expense}$")
+   
+</p>
 <p>
     <a class="classic-button" asp-action="Create">Create New</a>
 </p>

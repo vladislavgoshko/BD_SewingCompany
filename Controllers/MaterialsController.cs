@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.DbModels;
 using X.PagedList;
+using SewingCompany.ViewModels.Material;
+using static NuGet.Packaging.PackagingConstants;
+
 namespace SewingCompany.Controllers
 {
     [Authorize]
@@ -21,32 +24,69 @@ namespace SewingCompany.Controllers
         }
 
         // GET: Materials
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<IActionResult> Index(IndexMaterialViewModel viewModel)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
-            ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
-            ViewBag.TypeSortParm = sortOrder == "type_desc" ? "type_asc" : "type_desc";
-            ViewBag.AmountSortParm = sortOrder == "amount_asc" ? "amount_desc" : "amount_asc";
-            ViewBag.ProviderSortParm = sortOrder == "provider_asc" ? "provider_desc" : "provider_asc";
-            if (searchString != null)
+            ViewBag.CurrentSort = viewModel.sortOrder;
+            ViewBag.IdSortParm = viewModel.sortOrder == "id_desc" ? "id_asc" : "id_desc";
+            ViewBag.NameSortParm = viewModel.sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewBag.TypeSortParm = viewModel.sortOrder == "type_desc" ? "type_asc" : "type_desc";
+            ViewBag.AmountSortParm = viewModel.sortOrder == "amount_asc" ? "amount_desc" : "amount_asc";
+            ViewBag.ProviderSortParm = viewModel.sortOrder == "provider_asc" ? "provider_desc" : "provider_asc";
+
+            if (viewModel.searchString != null)
             {
-                page = 1;
+                viewModel.page = 1;
             }
             else
             {
-                searchString = currentFilter;
+                viewModel.searchString = viewModel.currentFilter;
             }
-            ViewBag.CurrentFilter = searchString;
-            var materials = from x in _context.Materials
-                           select x;
-            materials = materials.Include(x => x.Provider);
 
-            if (!string.IsNullOrEmpty(searchString))
+            ViewBag.CurrentFilter = viewModel.searchString;
+
+
+            var materials = from x in _context.Materials
+                            select x;
+            materials = materials.Include(x => x.Provider);
+            
+            
+            if (!string.IsNullOrEmpty(viewModel.searchString))
             {
-                materials = materials.Where(x => x.Name.Contains(searchString));
+                materials = materials.Where(x => x.Name.Contains(viewModel.searchString));
             }
-            switch (sortOrder)
+
+            if (viewModel.isEnds)
+            {
+                var Spends = (from ord in _context.Orders
+                              join p in _context.Products on ord.ProductId equals p.Id
+                              join ml in _context.MaterialLists on p.Id equals ml.ProductId
+                              join m in materials on ml.MaterialId equals m.Id
+                              where ord.OrderDate >= DateTime.Now.AddYears(-1)
+                              select new
+                              {
+                                  MaterialId = m.Id,
+                                  Spend = (ml.MaterialAmount * ord.Amount)
+                              }).OrderBy(x => x.MaterialId).ToList();
+
+                var Availability = (from p in _context.Providers
+                                    join m in materials on p.Id equals m.ProviderId
+                                    select new
+                                    {
+                                        MaterialId = m.Id,
+                                        Available = p.MaterialAmount
+                                    }).OrderBy(x => x.MaterialId).ToList();
+
+                var mats = new List<Material>();
+                foreach (var m in materials)
+                {
+                    if ((1 - (Spends.Where(x => x.MaterialId == m.Id)).Sum(x => x.Spend) / (Availability.Where(x => x.MaterialId == m.Id)).Sum(x => x.Available)) < 0.05)
+                    {
+                        mats.Add(m);
+                    }
+                }
+                materials = mats.AsQueryable<Material>();
+            }
+            switch (viewModel.sortOrder)
             {
                 case "id_desc":
                     materials = materials.OrderByDescending(x => x.Id);
@@ -81,8 +121,9 @@ namespace SewingCompany.Controllers
             }
 
             int pageSize = 20;
-            int pageNumber = (page ?? 1);
-            return View(await materials.ToPagedListAsync(pageNumber, pageSize));
+            int pageNumber = (viewModel.page ?? 1);
+            viewModel.Materials = materials.ToPagedList(pageNumber, pageSize);
+            return View(viewModel);
         }
 
         // GET: Materials/Details/5
@@ -214,14 +255,14 @@ namespace SewingCompany.Controllers
             {
                 _context.Materials.Remove(material);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MaterialExists(int id)
         {
-          return _context.Materials.Any(e => e.Id == id);
+            return _context.Materials.Any(e => e.Id == id);
         }
     }
 }
