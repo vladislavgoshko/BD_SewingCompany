@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using SewingCompany.DbModels;
 using X.PagedList;
 namespace SewingCompany.Controllers
 {
+    [Authorize]
     public class MaterialsController : Controller
     {
         private readonly SewingCompanyContext _context;
@@ -122,7 +124,7 @@ namespace SewingCompany.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Id", material.ProviderId);
+            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Name", material.ProviderId);
             return View(material);
         }
 
@@ -139,7 +141,7 @@ namespace SewingCompany.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Id", material.ProviderId);
+            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Name", material.ProviderId);
             return View(material);
         }
 
@@ -175,7 +177,7 @@ namespace SewingCompany.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Id", material.ProviderId);
+            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Name", material.ProviderId);
             return View(material);
         }
 

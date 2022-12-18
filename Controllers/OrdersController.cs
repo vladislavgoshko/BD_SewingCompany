@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
@@ -9,6 +10,7 @@ using X.PagedList;
 
 namespace SewingCompany.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly SewingCompanyContext _context;
@@ -116,8 +118,8 @@ namespace SewingCompany.Controllers
         public IActionResult Create()
         {
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
-            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Id");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Name");
             return View();
         }
 
@@ -135,8 +137,8 @@ namespace SewingCompany.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name", order.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Id", order.WorkerId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
+            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Name", order.WorkerId);
             return View(order);
         }
 
@@ -154,8 +156,8 @@ namespace SewingCompany.Controllers
                 return NotFound();
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name", order.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Id", order.WorkerId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
+            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Name", order.WorkerId);
             return View(order);
         }
 
@@ -192,8 +194,8 @@ namespace SewingCompany.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Name", order.CustomerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", order.ProductId);
-            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Id", order.WorkerId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", order.ProductId);
+            ViewData["WorkerId"] = new SelectList(_context.Workers, "Id", "Name", order.WorkerId);
             return View(order);
         }
 

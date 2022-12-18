@@ -24,6 +24,29 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Price)
         </dd>
+        <dt class = "col-sm-2">
+            Materials
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.MaterialLists.Count == 0)
+            {
+                @("none")
+            }
+            else
+            {
+                @foreach (var matList in Model.MaterialLists)
+                {
+
+                    @("Material name: ")
+                    @Html.DisplayFor(modelItem => matList.Material.Name)
+                    @(", Material amount: ")
+                    @Html.DisplayFor(modelItem => matList.MaterialAmount)
+                    <a class="change-button edit-button" asp-controller="Materials" asp-action="Edit" asp-route-id="@matList.Material.Id">Edit</a><a class="change-button details-button" asp-controller="Materials" asp-action="Details" asp-route-id="@matList.Material.Id">Details</a><a class="change-button delete-button" asp-controller="Materials" asp-action="Delete" asp-route-id="@matList.Material.Id">Delete</a>
+                    <br />
+                    <br />
+                }
+            }
+        </dd>
     </dl>
 </div>
 <div class="center-button">

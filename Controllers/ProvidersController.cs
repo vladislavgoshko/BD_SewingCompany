@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using SewingCompany.DbModels;
 using X.PagedList;
 namespace SewingCompany.Controllers
 {
+    [Authorize]
     public class ProvidersController : Controller
     {
         private readonly SewingCompanyContext _context;
@@ -90,6 +92,7 @@ namespace SewingCompany.Controllers
             }
 
             var provider = await _context.Providers
+                .Include(x => x.Materials)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (provider == null)
             {

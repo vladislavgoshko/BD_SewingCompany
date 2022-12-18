@@ -106,6 +106,7 @@ tr:nth-child(even) {
     border: 0px;
     font-weight: 600;
     padding: 4px 7px 4px 7px;
+    color: black;
 }
 
 .center-button {

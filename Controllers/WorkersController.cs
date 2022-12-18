@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using SewingCompany.DbModels;
 using X.PagedList;
 namespace SewingCompany.Controllers
 {
+    [Authorize]
     public class WorkersController : Controller
     {
         private readonly SewingCompanyContext _context;
@@ -19,13 +21,21 @@ namespace SewingCompany.Controllers
         }
 
         // GET: Workers
-        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page, string section, bool isSection)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.IdSortParm = sortOrder == "id_desc" ? "id_asc" : "id_desc";
             ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
             ViewBag.SectionSortParm = sortOrder == "section_desc" ? "section_asc" : "section_desc";
             ViewBag.PositionSortParm = sortOrder == "position_asc" ? "position_desc" : "position_asc";
+
+            ViewBag.Sections = _context.Workers.Select(a => new SelectListItem()
+            {
+                Value = a.Section,
+                Text = a.Section
+            });
+
+
             if (searchString != null)
             {
                 page = 1;
@@ -38,9 +48,11 @@ namespace SewingCompany.Controllers
             var workers = from x in _context.Workers
                            select x;
             if (!string.IsNullOrEmpty(searchString))
-            {
                 workers = workers.Where(x => x.Name.Contains(searchString));
-            }
+
+            if (isSection)
+                workers = workers.Where(x => x.Section == section);
+
             switch (sortOrder)
             {
                 case "id_desc":
@@ -82,14 +94,18 @@ namespace SewingCompany.Controllers
                 return NotFound();
             }
 
-            var worker = await _context.Workers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (worker == null)
+            var workers = _context.Workers
+                .Include(x => x.Orders)
+                .Where(x => x.Id == id);
+            if (workers == null)
             {
                 return NotFound();
             }
-
-            return View(worker);
+            (from ord in _context.Orders
+             join w in workers
+             on ord.WorkerId equals w.Id
+             select ord).Include(x => x.Product).Load();
+            return View(workers.FirstOrDefault());
         }
 
         // GET: Workers/Create

@@ -23,9 +23,10 @@ namespace SewingCompany
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
 
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -48,6 +49,11 @@ namespace SewingCompany
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            
+
+            app.UseInitializer();
+            //app.UseInitializer(new SewingCompanyContext());
 
             app.MapControllerRoute(
                 name: "default",

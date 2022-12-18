@@ -53,31 +53,29 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-                @{
-                    decimal amount = Math.Round(Convert.ToDecimal(item.QuantityInStock), 2); 
-                }
+        @foreach (var item in Model)
+        {
+            <tr>
                 <td>
-                @Html.DisplayFor(modelItem => amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Provider.Name)
-            </td>
-            <td>
-                <a class="change-button edit-button"  asp-action="Edit" asp-route-id="@item.Id">Edit</a><a class="change-button details-button" asp-action="Details" asp-route-id="@item.Id">Details</a><a class="change-button delete-button" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuantityInStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Provider.Name)
+                </td>
+                <td>
+                    <a class="change-button edit-button" asp-action="Edit" asp-route-id="@item.Id">Edit</a><a class="change-button details-button" asp-action="Details" asp-route-id="@item.Id">Details</a><a class="change-button delete-button" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <br />

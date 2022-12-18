@@ -13,8 +13,9 @@ namespace SewingCompany.DbModels
         }
 
         public int Id { get; set; }
-        [StringLength(30, MinimumLength = 5, ErrorMessage ="Length 5 and longer")]
-        [RegularExpression(@"[a-zA-Z]+", ErrorMessage ="Only letters")]
+
+        [StringLength(50, MinimumLength = 3, ErrorMessage ="Length 3 and longer")]
+        [RegularExpression(@"[А-Яа-яA-Za-z-\s]+", ErrorMessage ="Not a name")]
         [Required(ErrorMessage ="Required")]
         public string? Name { get; set; }
 

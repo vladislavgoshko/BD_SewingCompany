@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
@@ -11,6 +12,7 @@ using X.PagedList;
 
 namespace SewingCompany.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly SewingCompanyContext _context;
@@ -72,7 +74,9 @@ namespace SewingCompany.Controllers
                 return NotFound();
             }
 
-            var customers = _context.Customers.Include(x => x.Orders).Where(m => m.Id == id);
+            var customers = _context.Customers
+                .Include(x => x.Orders)
+                .Where(m => m.Id == id);
             
             if (customers == null)
             {

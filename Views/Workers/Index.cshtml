@@ -2,6 +2,7 @@
 @using X.PagedList
 @using X.PagedList.Mvc.Core
 @using X.PagedList.Web.Common
+
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewData["Title"] = "Workers";
@@ -15,10 +16,14 @@
 @using (Html.BeginForm("Index", "Workers", FormMethod.Get))
 {
     <p>
+        
+    </p>
+    <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "search-textbox" })
         <input class="classic-button" type="submit" value="Search" />
     </p>
 }
+
 <!--Номер страницы-->
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 <!--Список страниц-->
