@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SewingCompany.Data;
 using SewingCompany.DbModels;
+using SewingCompany.Middleware;
 
 namespace SewingCompany
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace SewingCompany
+namespace SewingCompany.Middleware
 {
     //Инициализация базы данных первой учетной записью и двумя ролями admin и user
     public static class DbUserInitializer

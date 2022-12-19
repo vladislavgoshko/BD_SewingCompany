@@ -1,4 +1,4 @@
-﻿namespace SewingCompany
+﻿namespace SewingCompany.Middleware
 {
 
     public static class InitializeDbExtension

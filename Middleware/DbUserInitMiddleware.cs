@@ -1,4 +1,4 @@
-﻿namespace SewingCompany
+﻿namespace SewingCompany.Middleware
 {
     public class DbUserInitMiddleware
     {

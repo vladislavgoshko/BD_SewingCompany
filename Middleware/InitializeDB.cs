@@ -1,6 +1,6 @@
 ﻿using SewingCompany.DbModels;
 
-namespace SewingCompany
+namespace SewingCompany.Middleware
 {
     public class InitializeDB
     {
@@ -9,8 +9,8 @@ namespace SewingCompany
 
         public InitializeDB(RequestDelegate next, SewingCompanyContext context)
         {
-            this._next = next;
-            this.dbContext = context;
+            _next = next;
+            dbContext = context;
         }
         public async Task InvokeAsync(HttpContext context)
         {
