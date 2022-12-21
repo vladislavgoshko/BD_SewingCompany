@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using SewingCompany.Models;
 
 namespace SewingCompany.DbModels
 {

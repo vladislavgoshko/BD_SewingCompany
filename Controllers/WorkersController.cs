@@ -124,7 +124,7 @@ namespace SewingCompany.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Section,Position")] Worker worker)
+        public async Task<IActionResult> Create([Bind("Id,Name,Section,Position")] DbModels.Worker worker)
         {
             if (ModelState.IsValid)
             {
@@ -156,7 +156,7 @@ namespace SewingCompany.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Section,Position")] Worker worker)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Section,Position")] DbModels.Worker worker)
         {
             if (id != worker.Id)
             {

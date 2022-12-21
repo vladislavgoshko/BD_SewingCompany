@@ -46,19 +46,20 @@
             @Html.DisplayNameFor(model => model.Customer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.Name)
+            <a asp-controller="Customers" asp-action="Details" asp-route-id="@Model?.Customer.Id">@Html.DisplayFor(model => model.Customer.Name)</a>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Product)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Product.Name)
+            
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@Model?.Product.Id">@Html.DisplayFor(model => model.Product.Name)</a>
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Worker)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Worker.Name)
+            <a asp-controller="Workers" asp-action="Details" asp-route-id="@Model?.Worker.Id">@Html.DisplayFor(model => model.Worker.Name)</a>
         </dd>
     </dl>
 </div>

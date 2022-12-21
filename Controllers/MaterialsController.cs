@@ -143,7 +143,7 @@ namespace SewingCompany.Controllers
         // GET: Materials/Create
         public IActionResult Create()
         {
-            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Id");
+            ViewData["ProviderId"] = new SelectList(_context.Providers, "Id", "Name");
             return View();
         }
 
@@ -152,7 +152,7 @@ namespace SewingCompany.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Type,QuantityInStock,ProviderId")] Material material)
+        public async Task<IActionResult> Create([Bind("Id,Name,Type,ProviderId")] Material material)
         {
             if (ModelState.IsValid)
             {
@@ -186,7 +186,7 @@ namespace SewingCompany.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,QuantityInStock,ProviderId")] Material material)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Type,ProviderId")] Material material)
         {
             if (id != material.Id)
             {

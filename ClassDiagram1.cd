@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SewingCompany.Areas.Identity.Pages.Account.LoginModel" Collapsed="true">
+    <Position X="18.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAgAABAAAAAMAAAAQAAAAIEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Login.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Areas.Identity.Pages.Account.RegisterModel" Collapsed="true">
+    <Position X="18.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAAQAAAAAgAABAAAAAMgCAAQQAAAIEAAAAAAA=</HashCode>
+      <FileName>Areas\Identity\Pages\Account\Register.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.CustomersController" Collapsed="true">
+    <Position X="9.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABBACAAAAAAABAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\CustomersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.HomeController" Collapsed="true">
+    <Position X="5.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAIAAAAQAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.MaterialsController" Collapsed="true">
+    <Position X="7.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAABBACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\MaterialsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.OrdersController" Collapsed="true">
+    <Position X="7.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABBACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\OrdersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.ProductsController" Collapsed="true">
+    <Position X="5.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACABBACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProductsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.ProvidersController" Collapsed="true">
+    <Position X="9.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABBACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProvidersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.UsersController" Collapsed="true">
+    <Position X="11" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAgAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\UsersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Controllers.WorkersController" Collapsed="true">
+    <Position X="11" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABBACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\WorkersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Data.Migrations.CreateIdentitySchema" Collapsed="true">
+    <Position X="18.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAI=</HashCode>
+      <FileName>Data\Migrations\00000000000000_CreateIdentitySchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Data.Migrations.ApplicationDbContextModelSnapshot" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Data\Migrations\ApplicationDbContextModelSnapshot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Data.ApplicationDbContext" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\ApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.Customer" Collapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbModels\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.Material" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAAAAAAEAAAABAAAAAQAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>DbModels\Material.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.MaterialList" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEACAAAAAAAAAAAAAAQAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbModels\MaterialList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.Order" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAGCABAAAAABAAAAAAAAAACAAAAAABAAAAgAAgAAAAA=</HashCode>
+      <FileName>DbModels\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.Product" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECIAAAAQAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbModels\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.Provider" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEACAAAAAQAAAAAABAAAAAQAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>DbModels\Provider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.SewingCompanyContext" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEEAIAAAAQAUAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAQ=</HashCode>
+      <FileName>DbModels\SewingCompanyContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.DbModels.Worker" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>DbModels\Worker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Middleware.DbUserInitializer" Collapsed="true">
+    <Position X="14.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Middleware\DbUserInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Middleware.DbUserInitMiddleware" Collapsed="true">
+    <Position X="14.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Middleware\DbUserInitMiddleware.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Middleware.InitializeDB" Collapsed="true">
+    <Position X="16.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAwAAAAAAAAAAA=</HashCode>
+      <FileName>Middleware\InitializeDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Middleware.InitializeDbExtension" Collapsed="true">
+    <Position X="16.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Middleware\InitializeDbExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Models.ErrorViewModel" Collapsed="true">
+    <Position X="12.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ErrorViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.ViewModels.Material.IndexMaterialViewModel" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEAAAAAAAAQAAAAAEAAAAAAAAJAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Material\IndexMaterialViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.ViewModels.User.CreateUserViewModel" Collapsed="true">
+    <Position X="14.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAgCAQAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\User\CreateUserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.ViewModels.User.EditUserViewModel" Collapsed="true">
+    <Position X="14.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\User\EditUserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.ViewModels.User.UserViewModel" Collapsed="true">
+    <Position X="12.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAAAAAQAAEAAAAAA=</HashCode>
+      <FileName>ViewModels\User\UserViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.ViewModels.Worker.IndexWorkerViewModel" Collapsed="true">
+    <Position X="12.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAEQAAAAAEAAAAgAAAIAAQAAAAAAiAAAAAAA=</HashCode>
+      <FileName>ViewModels\Worker\IndexWorkerViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SewingCompany.Program" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

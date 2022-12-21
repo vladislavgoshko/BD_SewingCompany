@@ -12,7 +12,6 @@ namespace SewingCompany.DbModels
 
         public int Id { get; set; }
 
-        [DisplayName("Provider name")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Length 3 and longer")]
         [RegularExpression(@"[А-Яа-яA-Za-z0-9-.""\s]+", ErrorMessage = "Not a name")]
         [Required(ErrorMessage = "Required")]

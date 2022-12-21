@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SewingCompany.Models;
 
 namespace SewingCompany.DbModels
 {

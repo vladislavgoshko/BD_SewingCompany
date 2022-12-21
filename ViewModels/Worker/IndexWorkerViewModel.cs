@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
+using SewingCompany.DbModels;
 
 namespace SewingCompany.ViewModels.Worker
 {
